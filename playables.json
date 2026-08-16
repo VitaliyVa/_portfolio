@@ -1,0 +1,416 @@
+[
+ {
+  "slug": "3-coin-volcanoes",
+  "title": "3 Ember Peaks",
+  "mech": "Hold & win 4×3",
+  "net": "Moloco",
+  "geos": 9,
+  "mb": 2.23,
+  "live": true
+ },
+ {
+  "slug": "crash",
+  "title": "Ascend",
+  "mech": "Crash curve",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 1.98,
+  "live": true
+ },
+ {
+  "slug": "mineslot",
+  "title": "Block Slot",
+  "mech": "Slot 3×3",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 1.76,
+  "live": true
+ },
+ {
+  "slug": "coin-strike",
+  "title": "Coin Blast",
+  "mech": "Hold & win",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 2.02,
+  "live": true
+ },
+ {
+  "slug": "coin-strike-xxl",
+  "title": "Coin Blast XXL",
+  "mech": "Hold & win 3×5",
+  "net": "Moloco",
+  "geos": 4,
+  "mb": 3.12,
+  "live": true
+ },
+ {
+  "slug": "chicken",
+  "title": "Coop",
+  "mech": "Runner",
+  "net": "ironSource",
+  "geos": 2,
+  "mb": 4.19,
+  "live": true
+ },
+ {
+  "slug": "chicken-road",
+  "title": "Coop Cross",
+  "mech": "Runner / cash-out",
+  "net": "Moloco",
+  "geos": 4,
+  "mb": 1.85,
+  "live": true
+ },
+ {
+  "slug": "chicken-road-2",
+  "title": "Coop Cross 2",
+  "mech": "Runner / cash-out",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 1.14,
+  "live": true
+ },
+ {
+  "slug": "chicken-road-3",
+  "title": "Coop Cross 3",
+  "mech": "Runner / cash-out",
+  "net": "ironSource",
+  "geos": 2,
+  "mb": 2.49,
+  "live": true
+ },
+ {
+  "slug": "chicken-road-4",
+  "title": "Coop Cross 4",
+  "mech": "Runner / cash-out",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 3.58,
+  "live": true
+ },
+ {
+  "slug": "chicken-run",
+  "title": "Coop Dash",
+  "mech": "Runner / cash-out",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 1.22,
+  "live": true
+ },
+ {
+  "slug": "bigtuna",
+  "title": "Deep Blue",
+  "mech": "Fishing slot",
+  "net": "ironSource",
+  "geos": 2,
+  "mb": 2.4,
+  "live": true
+ },
+ {
+  "slug": "fishinfrenzy",
+  "title": "Deep Reels",
+  "mech": "Fishing slot",
+  "net": "ironSource",
+  "geos": 3,
+  "mb": 4.8,
+  "live": true
+ },
+ {
+  "slug": "races",
+  "title": "Derby Dash",
+  "mech": "Pick & race",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 1.93,
+  "live": true
+ },
+ {
+  "slug": "sun-of-egypt",
+  "title": "Desert Sun",
+  "mech": "Slot 5×4",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 4.98,
+  "live": true
+ },
+ {
+  "slug": "hellhot",
+  "title": "Ember 40",
+  "mech": "Slot 5×4",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 3.05,
+  "live": true
+ },
+ {
+  "slug": "coin-volcano",
+  "title": "Ember Peak",
+  "mech": "Hold & win",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 2.25,
+  "live": true
+ },
+ {
+  "slug": "alwaysup",
+  "title": "Ever Rise",
+  "mech": "Multiplier ladder",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 3.4,
+  "live": true
+ },
+ {
+  "slug": "ice-fishing",
+  "title": "Frost Catch",
+  "mech": "Wheel / fishing",
+  "net": "Moloco",
+  "geos": 8,
+  "mb": 3.14,
+  "live": true
+ },
+ {
+  "slug": "ice-fishing-3",
+  "title": "Frost Catch III",
+  "mech": "Wheel / fishing",
+  "net": "Moloco",
+  "geos": 5,
+  "mb": 3.07,
+  "live": true
+ },
+ {
+  "slug": "ice-fishing-live",
+  "title": "Frost Catch Live",
+  "mech": "Wheel",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 3.97,
+  "live": true
+ },
+ {
+  "slug": "5-lions-megaways",
+  "title": "Golden Pride",
+  "mech": "Megaways slot",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 4.33,
+  "live": true
+ },
+ {
+  "slug": "mines",
+  "title": "Grid Miner",
+  "mech": "Grid reveal",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 3.92,
+  "live": true
+ },
+ {
+  "slug": "cops-n-robbers",
+  "title": "Heist Big Money",
+  "mech": "Pick-me",
+  "net": "Moloco",
+  "geos": 4,
+  "mb": 2.33,
+  "live": true
+ },
+ {
+  "slug": "cops-n-robbers-2",
+  "title": "Heist Night",
+  "mech": "Slot 3×3",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 3.97,
+  "live": true
+ },
+ {
+  "slug": "bigbasssplashamazonxtreme",
+  "title": "Jungle Catch",
+  "mech": "Fishing slot",
+  "net": "ironSource",
+  "geos": 2,
+  "mb": 3.98,
+  "live": true
+ },
+ {
+  "slug": "duck-2",
+  "title": "Long or Short",
+  "mech": "Chart / trading",
+  "net": "Mintegral",
+  "geos": 2,
+  "mb": 3.23,
+  "live": true
+ },
+ {
+  "slug": "luckytigergold",
+  "title": "Lucky Stripes",
+  "mech": "Slot 5×3",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 3.68,
+  "live": true
+ },
+ {
+  "slug": "more-magic-apple",
+  "title": "Magic Orchard",
+  "mech": "Slot 5×4",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 2.02,
+  "live": true
+ },
+ {
+  "slug": "mine-2",
+  "title": "Mines",
+  "mech": "Grid reveal",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 2.69,
+  "live": true
+ },
+ {
+  "slug": "plinko",
+  "title": "Plinko",
+  "mech": "Physics drop",
+  "net": "Moloco",
+  "geos": 1,
+  "mb": 3.55,
+  "live": true
+ },
+ {
+  "slug": "bigbasssplash",
+  "title": "River Catch",
+  "mech": "Fishing slot",
+  "net": "ironSource",
+  "geos": 3,
+  "mb": 3.61,
+  "live": true
+ },
+ {
+  "slug": "bigbasssplash1000",
+  "title": "River Catch 1000",
+  "mech": "Fishing slot",
+  "net": "ironSource",
+  "geos": 3,
+  "mb": 3.79,
+  "live": true
+ },
+ {
+  "slug": "fortune-of-olympus",
+  "title": "Sky Fortune",
+  "mech": "Cascading slot",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 3.74,
+  "live": true
+ },
+ {
+  "slug": "gates-of-olympus",
+  "title": "Sky Gates",
+  "mech": "Cascading slot",
+  "net": "Moloco",
+  "geos": 6,
+  "mb": 3.53,
+  "live": true
+ },
+ {
+  "slug": "gates-of-olympus-2",
+  "title": "Sky Gates II",
+  "mech": "Cascading slot",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 4.32,
+  "live": true
+ },
+ {
+  "slug": "gates-of-olympus-3",
+  "title": "Sky Gates III",
+  "mech": "Cascading slot",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 4.71,
+  "live": true
+ },
+ {
+  "slug": "gates-of-olympus-4",
+  "title": "Sky Gates IV",
+  "mech": "Cascading slot",
+  "net": "Moloco",
+  "geos": 4,
+  "mb": 3.72,
+  "live": true
+ },
+ {
+  "slug": "gates-of-olympus-5",
+  "title": "Sky Gates V",
+  "mech": "Cascading slot",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 3.41,
+  "live": true
+ },
+ {
+  "slug": "aviamasters",
+  "title": "Sky Pilots",
+  "mech": "Crash / collect",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 2.86,
+  "live": true
+ },
+ {
+  "slug": "skyborn",
+  "title": "Sky Vault",
+  "mech": "Slot 5×4",
+  "net": "Moloco",
+  "geos": 4,
+  "mb": 2.95,
+  "live": true
+ },
+ {
+  "slug": "duck-1",
+  "title": "Spin to Win",
+  "mech": "Wheel",
+  "net": "Mintegral",
+  "geos": 2,
+  "mb": 3.32,
+  "live": true
+ },
+ {
+  "slug": "blastthebass",
+  "title": "TNT Catch",
+  "mech": "Pick-me grid",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 2.14,
+  "live": true
+ },
+ {
+  "slug": "tower-rush",
+  "title": "Tower Rush",
+  "mech": "Crane / stacking",
+  "net": "Unity Ads",
+  "geos": 5,
+  "mb": 2.12,
+  "live": true
+ },
+ {
+  "slug": "wildcash",
+  "title": "Wild Vault",
+  "mech": "Slot 5×3",
+  "net": "Moloco",
+  "geos": 3,
+  "mb": 1.64,
+  "live": true
+ },
+ {
+  "slug": "wildcash2",
+  "title": "Wild Vault X",
+  "mech": "Slot 5×3",
+  "net": "Moloco",
+  "geos": 2,
+  "mb": 1.91,
+  "live": true
+ }
+]

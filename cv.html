@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vitaliy Stetsuik — CV — Playable Ads Developer</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--tx:#15181f;--dim:#5b6474;--line:#dfe3ea;--acc:#b8730a;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef1f5;color:var(--tx);font:15px/1.55 var(--sans)}
+  .page{max-width:860px;margin:26px auto;background:#fff;padding:44px 52px;
+    box-shadow:0 2px 22px rgba(20,26,40,.10);border-radius:6px}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+    border-bottom:2px solid var(--tx);padding-bottom:14px}
+  h1{margin:0;font-size:30px;letter-spacing:-.02em}
+  .role{margin:4px 0 0;font:600 13px/1.4 var(--mono);letter-spacing:.1em;
+    text-transform:uppercase;color:var(--acc)}
+  .contact{text-align:right;font-size:13px;color:var(--dim);line-height:1.75;white-space:nowrap}
+  .contact a{color:var(--tx)}
+  h2{font:700 11.5px/1 var(--mono);letter-spacing:.17em;text-transform:uppercase;
+    color:var(--dim);margin:26px 0 11px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .summary{margin:16px 0 0;font-size:15px}
+  .kv{display:grid;grid-template-columns:132px 1fr;gap:5px 16px;font-size:14px}
+  .kv dt{font-weight:650;color:var(--dim)}
+  .kv dd{margin:0}
+  .job{margin-bottom:17px;break-inside:avoid}
+  .job-h{display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+  .job-h h3{margin:0;font-size:15.5px}
+  .job-h .when{font:12.5px var(--mono);color:var(--dim);white-space:nowrap}
+  .where{margin:1px 0 6px;font-size:13.5px;color:var(--dim)}
+  ul{margin:0;padding-left:17px}
+  li{margin-bottom:3px;font-size:14px}
+  .metrics{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0 0;padding:0;list-style:none}
+  .metrics li{font:600 11.5px/1 var(--mono);background:#f4f6f9;border:1px solid var(--line);
+    border-radius:5px;padding:5px 8px;color:var(--dim);margin:0}
+  .short{font-size:14px;margin-bottom:7px}
+  .short b{font-weight:650}
+  .short .when{font:12px var(--mono);color:var(--dim)}
+  .foot{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--dim)}
+  .noprint{margin:0 auto 14px;max-width:860px;text-align:right}
+  .noprint button{font:600 13px var(--sans);padding:9px 15px;border-radius:7px;
+    border:1px solid #c7cedb;background:#fff;cursor:pointer}
+  @media print{
+    body{background:#fff}
+    .page{margin:0;padding:0 14mm;box-shadow:none;max-width:none;border-radius:0}
+    .noprint{display:none}
+    h2{margin-top:15px}
+    @page{size:A4;margin:11mm 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="noprint"><button onclick="window.print()">Save as PDF</button></div>
+
+<div class="page">
+  <div class="top">
+    <div>
+      <h1>Vitaliy Stetsuik</h1>
+      <p class="role">Playable Ads Developer · HTML5 / MRAID</p>
+    </div>
+    <div class="contact">
+      <a href="mailto:vistet1428@gmail.com">vistet1428@gmail.com</a><br>
+      <a href="https://vitaliyva.github.io/_portfolio/">Portfolio — 45+ playables</a><br>
+      <a href="https://github.com/VitaliyVa">github.com/VitaliyVa</a><br>
+      Poland · remote (CET)
+    </div>
+  </div>
+
+  <p class="summary">Playable ads developer with <b>2+ years building playables full-time</b>
+  and 5 years of front-end engineering behind it. 45+ shipped creatives across
+  <b>Unity Ads, AppLovin, Mintegral, ironSource, Moloco and Meta</b>, localised into 25+ markets.
+  I own the whole path — mechanic, art integration, MRAID layer, size optimisation and the
+  single-file build that passes network review — plus the Node tooling that makes it repeatable.</p>
+
+  <h2>Core skills</h2>
+  <dl class="kv">
+    <dt>Languages</dt><dd>JavaScript (ES6+), TypeScript, HTML5, CSS3/SCSS</dd>
+    <dt>Rendering</dt><dd>Canvas 2D, CSS animation, GSAP, anime.js, matter.js physics</dd>
+    <dt>Ad tech</dt><dd>MRAID 2/3 lifecycle, Unity Ads, AppLovin, Mintegral, ironSource, Moloco, Meta Playable</dd>
+    <dt>Optimisation</dt><dd>&lt;5 MB single-file builds, WebP/atlas pipelines, base64 inlining, audio compression</dd>
+    <dt>Tooling</dt><dd>Node.js build systems, Playwright automated QA, Python/Pillow asset pipelines, Git</dd>
+    <dt>Also</dt><dd>React, Next.js, Redux, Node.js APIs, MongoDB/PostgreSQL</dd>
+  </dl>
+
+  <h2>Playable ads experience</h2>
+  <div class="job">
+    <div class="job-h">
+      <h3>Playable Ads Developer — performance-marketing team</h3>
+      <span class="when">2024 — present</span>
+    </div>
+    <p class="where">iGaming &amp; casual-game advertisers (client names under NDA)</p>
+    <ul>
+      <li>Built 45+ playable ads end-to-end: mechanic, art integration, sound, win logic and CTA flow.</li>
+      <li>Implemented the MRAID layer for Unity Ads delivery — viewability-driven start, state-driven
+          pause/resume and two-layer audio gating that cleared “ignores physical mute button” rejections.</li>
+      <li>Localised creatives into 25+ markets (EN, UK, KO, ES-AR, ES-MX, FR, DE, NL, PT, UZ, AZ, KG, VI and more),
+          each shipped as an independently verified standalone build.</li>
+      <li>Kept every delivery inside the 5 000 000-byte network ceiling; cut the heaviest builds
+          16 MB → 4.7 MB through WebP re-encoding and resolution budgeting without visible quality loss.</li>
+      <li>Wrote the team’s Node build pipeline — base64 asset registries, CSS/JS inliners, monolith
+          unpackers, atlas slicers, GIF→WebM conversion — turning a new locale into a reviewed build in minutes.</li>
+      <li>Added a Playwright QA harness that loads every build in a mobile viewport and reports broken
+          assets, console errors and layout overflow before hand-off.</li>
+    </ul>
+    <ul class="metrics">
+      <li>45+ playables</li><li>25+ locales</li><li>6 ad networks</li>
+      <li>slots · crash · runner · wheel · plinko · mines</li>
+    </ul>
+  </div>
+
+  <h2>Front-end engineering</h2>
+
+  <div class="job">
+    <div class="job-h">
+      <h3>Senior React Front-End Developer — Starway Agency</h3>
+      <span class="when">Oct 2024 — present</span>
+    </div>
+    <ul>
+      <li>Mentored junior developers, ran technical interviews and owned estimation for the front-end team.</li>
+      <li>Refactored legacy modules for performance and maintainability; set UI-library standards.</li>
+    </ul>
+  </div>
+
+  <p class="short"><b>Middle Front-End Developer — Advert Software</b>
+    <span class="when">· Jun 2023 — Jun 2024</span><br>
+    Marketing automation for Google/Facebook Ads: interactive data tables and charts over integrated APIs,
+    UI macros for campaign setup, a Keyword Cleaner tool for filtering irrelevant search traffic.
+    React, Next.js, Redux, TypeScript.</p>
+
+  <p class="short"><b>Middle Front-End Developer — Elementals Studio</b>
+    <span class="when">· Jan 2022 — Sep 2024</span><br>
+    3D web configurators as interactive sales tools: Threekit integrations into Salesforce-based platforms,
+    internal staff-management systems, published and maintained NPM packages.
+    React, Node.js, Next.js, TypeScript, MongoDB, PostgreSQL.</p>
+
+  <p class="short"><b>Junior Front-End Developer — Starway Agency</b>
+    <span class="when">· Nov 2019 — Jan 2022</span><br>
+    E-commerce and corporate sites: responsive UI, performance work, chatbot and email-campaign integrations.
+    HTML, SCSS, Webpack, React, JavaScript.</p>
+
+  <h2>Education</h2>
+  <p class="short"><b>MSc, Computer Technologies</b> — Ternopil V. Hnatiuk National Pedagogical University
+    <span class="when">· 2022 — 2024</span><br>
+    <b>BSc, Computer Technologies</b> — same university <span class="when">· 2018 — 2022</span></p>
+
+  <h2>Languages</h2>
+  <p class="short">Ukrainian — native · Russian — fluent · English — technical reading &amp; writing
+    (documentation, network specs, written communication; not conversational)</p>
+
+  <p class="foot">Portfolio demos are neutralised skins: operator branding, real currency and store
+  redirects removed. Production builds and client references available on request.</p>
+</div>
+
+</body>
+</html>

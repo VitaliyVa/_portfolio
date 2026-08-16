@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Playable Ads Developer — Portfolio</title>
+<meta name="description" content="Playable ads portfolio. HTML5 / Canvas 2D / MRAID. 46 playables shipped across Unity Ads, AppLovin, Mintegral, ironSource, Moloco and Meta. Every demo runs in the browser.">
+<meta property="og:title" content="Playable Ads Developer — Portfolio">
+<meta property="og:description" content="46 playable ads, all runnable in the browser. HTML5 / Canvas 2D / MRAID, single-file builds under 5 MB.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0c11'/><path d='M12 9l12 7-12 7z' fill='%23ffc447'/></svg>">
+<style>
+  :root{
+    --bg:#080a0e; --bg2:#0d1017; --card:#12161e; --card2:#171d27;
+    --line:#1f2734; --line2:#2b3546;
+    --tx:#eef2f9; --dim:#98a4bb; --dim2:#6c798f;
+    --acc:#ffc447; --acc-d:#f0a71c; --cyan:#57ccff; --green:#7ce09a;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --r:14px; --ease:cubic-bezier(.22,.8,.28,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font:16px/1.62 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:
+      radial-gradient(1200px 560px at 10% -10%,rgba(255,196,71,.10),transparent 60%),
+      radial-gradient(1000px 500px at 95% -16%,rgba(87,204,255,.075),transparent 58%),
+      radial-gradient(800px 600px at 50% 108%,rgba(124,224,154,.05),transparent 60%)}
+
+  /* ---- фон сайту від активного плейбла ----
+     Джерело — той самий скріншот, що на картці: він завжди є, точно
+     відповідає грі й не тягне окремих файлів. Сильне розмиття прибирає
+     низьку роздільність, затемнення тримає контраст тексту. */
+  .bg-stage{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bg-layer{position:absolute;inset:-8%;background-size:cover;background-position:center;
+    opacity:0;transform:scale(1.08);
+    filter:blur(34px) saturate(1.5) brightness(.62);
+    transition:opacity 1.1s var(--ease),transform 6s var(--ease)}
+  .bg-layer.on{opacity:1;transform:scale(1.16)}
+  .bg-stage::after{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(120% 80% at 50% 0%,transparent 28%,rgba(8,10,14,.5) 76%),
+      linear-gradient(180deg,rgba(8,10,14,.42),rgba(8,10,14,.72))}
+  @media(prefers-reduced-motion:reduce){.bg-layer{transition:opacity .3s}}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+  .eyebrow{font:600 11.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin:0}
+
+  /* ---------------- header ---------------- */
+  nav{position:sticky;top:0;z-index:60;transition:background .3s,border-color .3s;
+    border-bottom:1px solid transparent}
+  nav.stuck{background:rgba(8,10,14,.84);backdrop-filter:blur(16px) saturate(1.4);
+    -webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom-color:var(--line)}
+  .nav-in{display:flex;align-items:center;gap:14px;height:64px}
+  .nav-prog{position:absolute;left:0;bottom:-1px;height:2px;width:0;
+    background:linear-gradient(90deg,var(--acc),var(--cyan));opacity:.85;transition:width .1s linear}
+  .logo{display:flex;align-items:center;gap:10px;font:650 14px/1 var(--sans);letter-spacing:-.01em}
+  .logo .dot{position:relative;width:10px;height:10px;border-radius:50%;background:var(--green);flex:0 0 auto}
+  .logo .dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;
+    border:1px solid var(--green);opacity:.45;animation:pulse 2.6s var(--ease) infinite}
+  @keyframes pulse{0%{transform:scale(.7);opacity:.6}70%{transform:scale(1.5);opacity:0}100%{opacity:0}}
+  .logo span{color:var(--dim)}
+  .nav-avail{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;
+    border:1px solid rgba(124,224,154,.28);background:rgba(124,224,154,.07);
+    font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+  @media(max-width:900px){.nav-avail{display:none}}
+  .nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+  .nav-links a{position:relative;padding:9px 13px;border-radius:8px;font-size:14px;color:var(--dim);
+    transition:color .2s,background .2s}
+  .nav-links a:hover{color:var(--tx);background:var(--card)}
+  .nav-links a::after{content:"";position:absolute;left:13px;right:13px;bottom:5px;height:1.5px;
+    border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;
+    transition:transform .28s var(--ease)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-cta{padding:9px 16px !important;color:#1c1305 !important;font-weight:650;
+    background:linear-gradient(180deg,var(--acc),var(--acc-d)) !important;
+    box-shadow:0 4px 16px rgba(255,196,71,.2)}
+  .nav-cta::after{display:none !important}
+  .nav-cta:hover{transform:translateY(-1px)}
+  @media(max-width:720px){.nav-links a:not(.nav-cta){display:none}}
+  .lang{display:flex;gap:2px;padding:3px;border-radius:9px;background:var(--bg2);
+    border:1px solid var(--line)}
+  .lang button{border:0;background:none;cursor:pointer;color:var(--dim2);
+    font:600 11.5px/1 var(--mono);padding:6px 8px;border-radius:6px;transition:.18s}
+  .lang button:hover{color:var(--tx)}
+  .lang button[aria-pressed="true"]{background:var(--card2);color:var(--acc)}
+
+  /* ---------------- hero ---------------- */
+  header{padding:56px 0 0}
+  .hero-grid{display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+  h1{margin:16px 0 12px;font-size:clamp(34px,6vw,58px);line-height:1.04;
+    letter-spacing:-.035em;font-weight:700}
+  h1 em{font-style:normal;background:linear-gradient(96deg,var(--acc),#ffe6a3 52%,var(--acc-d));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .tagline{margin:0;font-size:clamp(16px,2vw,19.5px);color:var(--dim);max-width:52ch}
+  .stats{display:flex;flex-wrap:wrap;margin:30px 0 0;padding:0;list-style:none;
+    border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    background:linear-gradient(180deg,var(--card2),var(--card));width:fit-content;max-width:100%}
+  .stats li{padding:13px 19px;border-right:1px solid var(--line)}
+  .stats li:last-child{border-right:0}
+  .stats b{display:block;font:700 21px/1.15 var(--sans);letter-spacing:-.025em;color:var(--acc)}
+  .stats span{font:11.5px/1.4 var(--mono);color:var(--dim2)}
+  @media(max-width:560px){.stats li{flex:1 0 45%;border-bottom:1px solid var(--line)}}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 19px;border-radius:10px;
+    font-weight:600;font-size:14px;border:1px solid var(--line2);background:var(--card);
+    transition:transform .18s var(--ease),border-color .18s,box-shadow .18s;cursor:pointer}
+  .btn:hover{transform:translateY(-2px);border-color:var(--dim2)}
+  .btn--primary{background:linear-gradient(180deg,var(--acc),var(--acc-d));color:#1c1305;
+    border-color:transparent;box-shadow:0 6px 22px rgba(255,196,71,.18)}
+  .btn--primary:hover{box-shadow:0 10px 30px rgba(255,196,71,.28)}
+  .btn--tg{border-color:rgba(87,204,255,.3);color:var(--cyan)}
+
+  .stage{position:relative}
+  .phone{position:relative;width:274px;padding:11px;border-radius:36px;
+    background:linear-gradient(155deg,#39435a,#141922 46%,#0d1118);
+    box-shadow:0 30px 70px rgba(0,0,0,.66),0 0 0 1px rgba(255,255,255,.07) inset;
+    transition:transform .35s var(--ease)}
+  .phone::after{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);
+    width:80px;height:5px;border-radius:99px;background:#070910;z-index:4}
+  .phone-scr{position:relative;aspect-ratio:9/19.5;border-radius:26px;overflow:hidden;background:#06080c}
+  .phone-scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  /* Плейбл живе у фіксованому в'юпорті 360×780 і масштабується трансформом.
+     360/780 — це рівно 9/19.5, тому дробових пікселів не виникає.
+     Розтягування iframe під довільний розмір ламало ігри, що рахують
+     символи від ширини, а рамку від висоти (порожнеча під барабанами),
+     і давало смуги прокрутки на субпіксельній висоті. */
+  .frame iframe,.phone-scr iframe{position:absolute;top:0;left:0;
+    width:360px;height:780px;border:0;display:block;
+    transform-origin:top left;background:#06080c}
+  .phone-scr img{transition:opacity .35s var(--ease),transform .5s var(--ease)}
+  .phone-scr img.swap{opacity:0;transform:scale(1.04)}
+  .phone-lbl{margin-top:14px;text-align:center;font:12px/1.5 var(--mono);color:var(--dim2)}
+  .phone-lbl b{color:var(--tx);font-weight:600}
+  .stage-hint{margin-top:4px;text-align:center;font:11.5px/1.5 var(--mono);color:var(--dim2);opacity:.75}
+
+  /* ---------------- два зустрічні слайдери ---------------- */
+  .reel-sec{margin-top:50px;padding-bottom:54px}
+  .reel-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+  .reel-head p{margin:0;font:11.5px/1 var(--mono);color:var(--dim2);letter-spacing:.06em}
+  .rails{position:relative;
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .rail{overflow:hidden;padding:6px 0}
+  .rail + .rail{margin-top:12px}
+  .rail-track{display:flex;gap:12px;width:max-content;will-change:transform}
+  .rail--l .rail-track{animation:railL 78s linear infinite}
+  .rail--r .rail-track{animation:railR 92s linear infinite}
+  .rails:hover .rail-track{animation-play-state:paused}
+  @keyframes railL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes railR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  .reel-item{position:relative;flex:0 0 auto;border:0;padding:0;background:none;cursor:pointer;
+    border-radius:11px;overflow:hidden;transition:transform .28s var(--ease)}
+  .reel-item img{display:block;width:auto;border-radius:11px;border:1px solid var(--line);
+    opacity:.5;transition:opacity .3s var(--ease),border-color .3s,box-shadow .3s,filter .3s}
+  .rail--l .reel-item img{height:158px}
+  .rail--r .reel-item img{height:132px}
+  .reel-item:hover img{opacity:1;border-color:var(--line2);filter:saturate(1.1)}
+  .reel-item:hover{transform:translateY(-6px) scale(1.03)}
+  .reel-item[aria-current="true"] img{opacity:1;border-color:var(--acc);
+    box-shadow:0 0 0 1px var(--acc),0 12px 30px rgba(255,196,71,.2)}
+  .reel-item i{position:absolute;left:7px;right:7px;bottom:8px;font-style:normal;
+    font:600 10px/1.35 var(--mono);color:#fff;text-shadow:0 1px 7px rgba(0,0,0,.95);
+    opacity:0;transform:translateY(4px);transition:opacity .28s,transform .28s var(--ease)}
+  .reel-item:hover i,.reel-item[aria-current="true"] i{opacity:1;transform:none}
+
+  /* поява рейок: піднімаються з розмиття, з різною затримкою */
+  @keyframes railIn{from{opacity:0;transform:translateY(26px);filter:blur(7px)}
+                    to{opacity:1;transform:none;filter:none}}
+  .rail{animation:railIn .95s var(--ease) both}
+  .rail--r{animation-delay:.16s}
+  @media(prefers-reduced-motion:reduce){
+    .rail{animation:none}
+    .rail--l .rail-track,.rail--r .rail-track{animation:none}
+  }
+
+  /* ---------------- sections ---------------- */
+  section{padding:72px 0;border-top:1px solid var(--line);scroll-margin-top:68px}
+  .head{margin-bottom:26px}
+  h2{font-size:clamp(21px,2.5vw,28px);margin:9px 0 8px;letter-spacing:-.028em}
+  .sub{color:var(--dim);margin:0;font-size:15px;max-width:70ch}
+  .notice{display:flex;gap:13px;margin:22px 0 26px;padding:15px 17px;border-radius:12px;
+    background:linear-gradient(180deg,rgba(255,196,71,.055),rgba(255,196,71,.02));
+    border:1px solid rgba(255,196,71,.17);font-size:13.8px;line-height:1.62;color:var(--dim)}
+  .notice svg{flex:0 0 auto;margin-top:2px}
+  .notice b{color:var(--tx);font-weight:600}
+  .filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px;align-items:center}
+  .chip{font:600 12.5px/1 var(--sans);padding:9px 14px;border-radius:999px;cursor:pointer;
+    background:var(--bg2);border:1px solid var(--line);color:var(--dim);
+    transition:color .18s,border-color .18s,background .18s,transform .18s var(--ease)}
+  .chip:hover{color:var(--tx);border-color:var(--line2);transform:translateY(-1px)}
+  .chip[aria-pressed="true"]{background:var(--acc);color:#1c1305;border-color:var(--acc)}
+  .count{color:var(--dim2);font:12px var(--mono);margin-left:auto}
+
+  .grid{display:grid;gap:20px;grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+  .card{position:relative;background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    display:flex;flex-direction:column;
+    transition:transform .26s var(--ease),border-color .26s,box-shadow .26s}
+  .card:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 18px 42px rgba(0,0,0,.5)}
+  .card.playing{border-color:rgba(255,196,71,.55);
+    box-shadow:0 0 0 1px rgba(255,196,71,.25),0 18px 44px rgba(0,0,0,.55)}
+  .frame{position:relative;aspect-ratio:9/19.5;background:#06080c;overflow:hidden}
+  .frame img{width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .5s var(--ease)}
+  .card:hover .frame img{transform:scale(1.035)}
+  .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,rgba(6,8,12,.12),rgba(6,8,12,.6));
+    border:0;cursor:pointer;transition:background .25s}
+  .card:hover .play{background:linear-gradient(180deg,rgba(6,8,12,.02),rgba(6,8,12,.4))}
+  .play span{display:flex;align-items:center;gap:7px;background:var(--acc);color:#1c1305;
+    padding:10px 17px;border-radius:999px;font:650 13px var(--sans);
+    box-shadow:0 8px 24px rgba(0,0,0,.55);transition:transform .25s var(--ease)}
+  .card:hover .play span{transform:scale(1.07)}
+  .stop{position:absolute;top:9px;right:9px;z-index:5;width:30px;height:30px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.22);background:rgba(6,8,12,.66);color:#fff;
+    font:600 14px/1 var(--sans);cursor:pointer;backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center}
+  .card.playing .stop{display:flex}
+  .meta{padding:13px 14px 15px}
+  .meta h3{margin:0 0 3px;font-size:14.5px;font-weight:650;letter-spacing:-.012em}
+  .meta p{margin:0;font:12px/1.5 var(--mono);color:var(--dim2)}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+  .tag{font:600 10.5px/1 var(--mono);letter-spacing:.04em;padding:5px 7px;border-radius:5px;
+    background:var(--bg2);border:1px solid var(--line);color:var(--dim2)}
+  @keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+  .card{animation:cardIn .5s var(--ease) both;animation-delay:calc(var(--i,0) * 26ms)}
+  .card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+    transition:opacity .3s;border-radius:var(--r);
+    background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),
+      rgba(255,196,71,.09),transparent 62%)}
+  .card:hover::after{opacity:1}
+
+  .cols{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(276px,1fr))}
+  .box{position:relative;background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--line);border-radius:var(--r);padding:22px;overflow:hidden;
+    transition:transform .26s var(--ease),border-color .26s}
+  .box:hover{transform:translateY(-3px);border-color:var(--line2)}
+  .box::before{content:"";position:absolute;inset:0 0 auto;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,196,71,.4),transparent)}
+  .box h3{margin:0 0 9px;font-size:15px;letter-spacing:-.012em}
+  .box p{margin:0;font-size:14px;color:var(--dim);line-height:1.68}
+
+  .skills{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    background:linear-gradient(180deg,var(--card2),var(--card))}
+  .skills div{display:grid;grid-template-columns:152px 1fr;gap:18px;padding:15px 20px;
+    border-bottom:1px solid var(--line)}
+  .skills div:last-child{border-bottom:0}
+  .skills dt{font:600 11px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim2)}
+  .skills dd{margin:0;font-size:14.5px}
+  @media(max-width:560px){.skills div{grid-template-columns:1fr;gap:4px}}
+
+  footer{padding:72px 0 88px;border-top:1px solid var(--line)}
+  .mail{display:inline-block;font-size:clamp(20px,3.4vw,30px);font-weight:700;letter-spacing:-.035em;
+    background:linear-gradient(96deg,var(--acc),#ffe6a3);-webkit-background-clip:text;
+    background-clip:text;color:transparent;margin:14px 0 0}
+  .contacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .note{color:var(--dim2);font-size:12.5px;margin-top:28px;max-width:66ch;line-height:1.72}
+
+  .reveal{opacity:0;transform:translateY(16px);
+    transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .logo .dot::after{animation:none}
+    .card{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-stage" aria-hidden="true">
+  <div class="bg-layer" id="bgA"></div>
+  <div class="bg-layer" id="bgB"></div>
+</div>
+
+<nav id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top"><i class="dot"></i>Playable Ads <span>/ portfolio</span></a>
+    <span class="nav-avail" data-i18n="nav.avail">Open to work</span>
+    <div class="nav-links">
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#how" data-i18n="nav.how">How I build</a>
+      <a href="cv.html" data-i18n="nav.cv">CV</a>
+      <div class="lang" id="lang">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="uk">UK</button>
+        <button type="button" data-lang="ru">RU</button>
+      </div>
+      <a class="nav-cta" href="https://t.me/EngMariou" target="_blank" rel="noopener"
+         data-i18n="nav.hire">Hire me</a>
+    </div>
+    <div class="nav-prog" id="navProg"></div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Playable Ads Developer</p>
+      <h1><span data-i18n="hero.h1a">Playable ads that</span><br><em data-i18n="hero.h1b">ship and convert</em></h1>
+      <p class="tagline" data-i18n="hero.tagline">Built end-to-end — mechanic, art integration,
+        localisation and the single-file build that passes network review.</p>
+      <ul class="stats">
+        <li><b>100+</b><span data-i18n="stat.playables">playables</span></li>
+        <li><b>2+ yrs</b><span data-i18n="stat.years">playables only</span></li>
+        <li><b>25+</b><span data-i18n="stat.geo">GEO locales</span></li>
+        <li><b>6</b><span data-i18n="stat.networks">ad networks</span></li>
+        <li><b>&lt;5 MB</b><span data-i18n="stat.size">single-file</span></li>
+      </ul>
+      <div class="cta">
+        <a class="btn btn--primary" href="#work" data-i18n="hero.browse">▶ Browse all</a>
+        <a class="btn" href="cv.html" data-i18n="hero.cv">CV</a>
+        <a class="btn btn--tg" href="https://t.me/EngMariou" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="phone" id="heroPhone">
+        <div class="phone-scr" id="heroScr">
+          <img id="heroImg" src="shots/tower-rush.jpg" alt="Selected playable ad">
+          <button class="play" type="button" id="heroPlay" aria-label="Play"><span>▶ Play</span></button>
+        </div>
+      </div>
+      <p class="phone-lbl"><b id="heroTitle">Tower Rush</b> · <span id="heroMeta">Unity Ads</span></p>
+      <p class="stage-hint" data-i18n="hero.hint">pick any thumbnail below to load it here</p>
+    </div>
+  </div>
+
+  <div class="reel-sec">
+    <div class="wrap reel-head">
+      <p class="eyebrow" style="color:var(--dim2)" data-i18n="reel.eyebrow">Try them</p>
+      <p data-i18n="reel.hint">hover to pause · click to load into the phone</p>
+    </div>
+    <div class="rails">
+      <div class="rail rail--l"><div class="rail-track" id="railA"></div></div>
+      <div class="rail rail--r"><div class="rail-track" id="railB"></div></div>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow" data-i18n="work.eyebrow">Selected work</p>
+      <h2 data-i18n="work.h2">Creatives — every one playable</h2>
+      <p class="sub" data-i18n="work.sub">Tap any card to run the actual shipped build right here in the browser.</p>
+    </div>
+    <div class="notice">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffc447" stroke-width="2"
+           stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      <div><b data-i18n="work.notice.b">These are neutralised demo skins.</b>
+        <span data-i18n="work.notice.t">Every operator logo, game title and brand mark was replaced
+        with a generic wordmark, and real currency, casino branding and store redirects were stripped
+        out — client work stays confidential. Because some of those logos were painted into background
+        art rather than sitting in separate files, a few creatives show small cosmetic artefacts around
+        the replaced areas. The mechanics, animation and build behaviour are exactly as shipped.</span>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow" data-i18n="how.eyebrow">Process</p>
+      <h2 data-i18n="how.h2">How I build them</h2>
+      <p class="sub" data-i18n="how.sub">The parts that decide whether a playable ships or gets rejected.</p>
+    </div>
+    <div class="cols">
+      <div class="box reveal"><h3 data-i18n="how.1t">Network compliance</h3><p data-i18n="how.1p"></p></div>
+      <div class="box reveal"><h3 data-i18n="how.2t">Size budget</h3><p data-i18n="how.2p"></p></div>
+      <div class="box reveal"><h3 data-i18n="how.3t">GEO localisation</h3><p data-i18n="how.3p"></p></div>
+      <div class="box reveal"><h3 data-i18n="how.4t">Own build pipeline</h3><p data-i18n="how.4p"></p></div>
+      <div class="box reveal"><h3 data-i18n="how.5t">Automated QA</h3><p data-i18n="how.5p"></p></div>
+      <div class="box reveal"><h3 data-i18n="how.6t">No engine tax</h3><p data-i18n="how.6p"></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow" data-i18n="stack.eyebrow">Stack</p>
+      <h2 data-i18n="stack.h2">What I work with</h2>
+    </div>
+    <dl class="skills">
+      <div><dt data-i18n="stack.core">Core</dt><dd>JavaScript (ES6+), TypeScript, HTML5 Canvas 2D, CSS3, SCSS</dd></div>
+      <div><dt data-i18n="stack.ad">Ad tech</dt><dd>MRAID 2/3, Unity Ads, AppLovin, Mintegral, ironSource, Moloco, Meta Playable</dd></div>
+      <div><dt data-i18n="stack.lib">Libraries</dt><dd>GSAP, anime.js, matter.js, sprite-atlas pipelines</dd></div>
+      <div><dt data-i18n="stack.tool">Tooling</dt><dd>Node.js build systems, Playwright, Python/Pillow, Git</dd></div>
+      <div><dt data-i18n="stack.opt">Optimisation</dt><dd>WebP encoding, atlas slicing, audio compression, base64 inlining</dd></div>
+      <div><dt data-i18n="stack.also">Also</dt><dd data-i18n="stack.alsov">React, Next.js, Node.js APIs — 5 years of product front-end before playables</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="foot.eyebrow">Available</p>
+    <h2 style="margin-bottom:4px" data-i18n="foot.h2">Open to playable ads roles</h2>
+    <p class="sub" data-i18n="foot.sub">Full-time, contract or per-creative. Remote, based in Poland (CET).</p>
+    <a class="mail" href="https://t.me/EngMariou" target="_blank" rel="noopener">t.me/EngMariou</a>
+    <div class="contacts">
+      <a class="btn btn--tg" href="https://t.me/EngMariou" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn" href="mailto:vistet1428@gmail.com">vistet1428@gmail.com</a>
+      <a class="btn" href="https://github.com/VitaliyVa" rel="noopener">GitHub</a>
+    </div>
+    <p class="note" data-i18n="foot.note">All demos on this page are neutralised portfolio skins.</p>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script>
+(async function () {
+  const grid    = document.getElementById('grid');
+  const filters = document.getElementById('filters');
+  const heroScr = document.getElementById('heroScr');
+
+  let items = [];
+  try { items = await (await fetch('playables.json')).json(); }
+  catch (e) { grid.innerHTML = '<p style="color:var(--dim)">Could not load the project list.</p>'; return; }
+
+  /* ---------------- локалізація ---------------- */
+  const DICT = window.I18N || {};
+  let lang = localStorage.getItem('pf-lang')
+          || (/^(uk|ru)/.test(navigator.language || '') ? navigator.language.slice(0, 2) : 'en');
+  if (!DICT[lang]) lang = 'en';
+
+  function applyLang(l) {
+    lang = DICT[l] ? l : 'en';
+    localStorage.setItem('pf-lang', lang);
+    const d = DICT[lang];
+    document.documentElement.lang = lang;
+    if (d['meta.title']) document.title = d['meta.title'];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = d[el.dataset.i18n];
+      if (v) el.textContent = v;
+    });
+    document.querySelectorAll('#lang button').forEach(b =>
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    renderFilters();
+  }
+  document.getElementById('lang').addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) applyLang(b.dataset.lang);
+  });
+
+  /* ---------------- фон сайту ---------------- */
+  const bgLayers = [document.getElementById('bgA'), document.getElementById('bgB')];
+  let bgTop = 0, bgCurrent = null, bgToken = 0;
+
+  function setBackdrop(slug) {
+    if (slug === bgCurrent) return;
+    bgCurrent = slug;
+    const my = ++bgToken;             // мітка запиту: при швидкому переборі карток
+                                      // старе завантаження не має перебивати нове
+    if (!slug) { bgLayers.forEach(l => l.classList.remove('on')); return; }
+    const img = new Image();          // показуємо лише коли картинка вже готова —
+    img.onload = () => {              // інакше перехід моргає порожнім шаром
+      if (my !== bgToken) return;     // поки вантажилось, вибір змінився
+      const next = bgLayers[bgTop ^ 1];
+      next.style.backgroundImage = 'url("shots/' + slug + '.jpg")';
+      next.classList.add('on');
+      bgLayers[bgTop].classList.remove('on');
+      bgTop ^= 1;
+    };
+    img.src = 'shots/' + slug + '.jpg';
+  }
+
+  /* Фон має два джерела: активна гра і наведення на картку.
+     Гра завжди головніша — поки вона грає, ховер фон не чіпає. */
+  let bgActive = null, bgHover = null, hoverTimer = null;
+  const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  function applyBackdrop() {
+    setBackdrop(bgActive || bgHover || null);
+  }
+  function setActiveBackdrop(slug) {
+    bgActive = slug;
+    if (slug) bgHover = null;         // почалась гра — ховер скидаємо
+    applyBackdrop();
+  }
+  function setHoverBackdrop(slug) {
+    if (!canHover) return;            // на тач-екранах ховеру немає, лише плутанина
+    clearTimeout(hoverTimer);
+    if (bgActive) return;             // гра грає — не перебиваємо
+    // невелика затримка: без неї протягування миші через десяток карток
+    // влаштовує чергу перемикань
+    hoverTimer = setTimeout(() => {
+      if (bgActive) return;
+      bgHover = slug;
+      applyBackdrop();
+    }, slug ? 130 : 260);
+  }
+
+  /* ---------------- один плеєр за раз ---------------- */
+  const players = new Set();
+  const stopAll = except => players.forEach(p => { if (p !== except) p.stop(); });
+
+  const AD_W = 360, AD_H = 780;   // логічний в'юпорт креатива
+
+  function mountPlayer(host, slug, onStop) {
+    const f = document.createElement('iframe');
+    f.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+    f.setAttribute('allow', 'autoplay');
+    f.setAttribute('scrolling', 'no');
+    f.setAttribute('title', slug);
+
+    // масштабуємо фіксований в'юпорт під розмір контейнера
+    const fit = () => {
+      const w = host.clientWidth || AD_W;
+      f.style.transform = 'scale(' + (w / AD_W) + ')';
+    };
+    fit();
+    const ro = ('ResizeObserver' in window) ? new ResizeObserver(fit) : null;
+    if (ro) ro.observe(host);
+
+    f.addEventListener('load', () => {
+      // всередині креатива прокрутки бути не повинно — як у реальному ad-контейнері
+      try { f.contentDocument.documentElement.style.overflow = 'hidden'; } catch (e) {}
+    });
+
+    f.src = 'play/' + slug + '.html';
+    host.appendChild(f);
+
+    let stopped = false;
+    const p = { el: f, stop() {
+      if (stopped) return;                    // без цього onStop -> stop -> onStop зациклюється
+      stopped = true;
+      if (ro) ro.disconnect();
+      if (f.parentNode) f.parentNode.removeChild(f);   // єдиний надійний спосіб обірвати звук
+      players.delete(p);
+      if (onStop) onStop();
+    }};
+    players.add(p);
+    return p;
+  }
+
+  // Тільки перехід на іншу вкладку глушить звук.
+  // Подію blur вікна НЕ використовуємо: клік усередині iframe теж її кидає,
+  // через що гра знімалась і виглядало як перезапуск.
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopAll(); });
+  addEventListener('pagehide', () => stopAll());
+
+  /* ---------------- hero ---------------- */
+  let heroItem = null, heroPlayer = null;
+  const heroImg = document.getElementById('heroImg');
+
+  function heroButton() {
+    let pb = document.getElementById('heroPlay');
+    if (!pb) {
+      pb = document.createElement('button');
+      pb.className = 'play'; pb.id = 'heroPlay'; pb.type = 'button';
+      pb.innerHTML = '<span>▶ Play</span>';
+      heroScr.appendChild(pb);
+    }
+    pb.onclick = () => {
+      stopAll();
+      pb.remove();
+      setActiveBackdrop(heroItem.slug);
+      heroPlayer = mountPlayer(heroScr, heroItem.slug, () => {
+        heroPlayer = null; heroButton(); setActiveBackdrop(null);
+      });
+    };
+    return pb;
+  }
+
+  function setHero(it) {
+    const prev = heroPlayer; heroPlayer = null;
+    if (prev) prev.stop();
+    heroItem = it;
+    heroImg.classList.add('swap');
+    setTimeout(() => {
+      heroImg.src = 'shots/' + it.slug + '.jpg';
+      heroImg.classList.remove('swap');
+    }, 170);
+    document.getElementById('heroTitle').textContent = it.title;
+    document.getElementById('heroMeta').textContent =
+      it.net + (it.mb ? ' · ' + it.mb.toFixed(2) + ' MB' : '');
+    document.querySelectorAll('.reel-item').forEach(b =>
+      b.setAttribute('aria-current', String(b.dataset.slug === it.slug)));
+    const old = heroScr.querySelector('iframe');
+    if (old) old.remove();
+    heroButton();
+  }
+
+  /* ---------------- дві зустрічні рейки ---------------- */
+  function thumb(it) {
+    const b = document.createElement('button');
+    b.className = 'reel-item'; b.type = 'button'; b.dataset.slug = it.slug;
+    b.title = it.title + ' — ' + it.mech;
+    b.innerHTML = '<img loading="lazy" alt="' + it.title + '" src="shots/' + it.slug + '.jpg">' +
+                  '<i>' + it.title + '</i>';
+    b.onclick = () => {
+      setHero(it);
+      // focus() прокручував лише частково і ховав телефон під липкою шапкою —
+      // рахуємо позицію самі, з поправкою на висоту навбару
+      const stage = document.querySelector('.stage');
+      const navH = document.getElementById('nav').offsetHeight + 14;
+      const r = stage.getBoundingClientRect();
+      const target = scrollY + r.top - Math.max(navH, (innerHeight - r.height) / 2);
+      scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+    };
+    return b;
+  }
+  const half = Math.ceil(items.length / 2);
+  const rowA = items.slice(0, half), rowB = items.slice(half);
+  // кожен ряд дублюється — інакше на стику анімації буде стрибок
+  rowA.concat(rowA).forEach(it => document.getElementById('railA').appendChild(thumb(it)));
+  rowB.concat(rowB).forEach(it => document.getElementById('railB').appendChild(thumb(it)));
+
+  /* ---------------- фільтри ---------------- */
+  const GROUPS = [
+    ['All', 'f.all'], ['Slot', 'f.slot'], ['Crash', 'f.crash'], ['Runner', 'f.runner'],
+    ['Wheel', 'f.wheel'], ['Grid', 'f.grid'], ['Hold & win', 'f.hold']
+  ];
+  const match = (it, g) => {
+    if (g === 'All') return true;
+    if (g === 'Hold & win') return /hold/i.test(it.mech);
+    if (g === 'Grid') return /grid|pick/i.test(it.mech);
+    return new RegExp(g, 'i').test(it.mech);
+  };
+  let active = 'All';
+  let count;
+  function renderFilters() {
+    filters.textContent = '';
+    GROUPS.forEach(([key, i18n]) => {
+      const b = document.createElement('button');
+      b.className = 'chip'; b.type = 'button';
+      b.textContent = (DICT[lang] && DICT[lang][i18n]) || key;
+      b.setAttribute('aria-pressed', String(key === active));
+      b.onclick = () => { active = key; renderFilters(); render(); };
+      filters.appendChild(b);
+    });
+    count = null;   // лічильник прихований на прохання — число робіт не афішуємо
+  }
+
+  /* ---------------- картки ---------------- */
+  function card(it) {
+    const el = document.createElement('article');
+    el.className = 'card';
+    const size = it.mb ? it.mb.toFixed(2) + ' MB' : '';
+    el.innerHTML =
+      '<div class="frame">' +
+        '<img loading="lazy" alt="' + it.title + '" src="shots/' + it.slug + '.jpg">' +
+        '<button class="play" type="button" aria-label="Play ' + it.title + '"><span>▶ Play</span></button>' +
+        '<button class="stop" type="button" aria-label="Stop">✕</button>' +
+      '</div>' +
+      '<div class="meta"><h3>' + it.title + '</h3><p>' + it.mech + '</p>' +
+        '<div class="tags"><i class="tag">' + it.net + '</i>' +
+        '<i class="tag">' + it.geos + ' GEO</i>' +
+        (size ? '<i class="tag">' + size + '</i>' : '') + '</div></div>';
+
+    const frame = el.querySelector('.frame');
+    const playBtn = el.querySelector('.play');
+    const stopBtn = el.querySelector('.stop');
+    let player = null;
+    const reset = () => {
+      el.classList.remove('playing'); playBtn.style.display = ''; player = null;
+      setActiveBackdrop(null);
+    };
+
+    playBtn.onclick = () => {
+      stopAll();
+      playBtn.style.display = 'none';
+      el.classList.add('playing');
+      setActiveBackdrop(it.slug);
+      player = mountPlayer(frame, it.slug, reset);
+    };
+    stopBtn.onclick = () => { if (player) player.stop(); };
+
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting && player) player.stop();
+    }), { threshold: 0.15 });
+    io.observe(el);
+
+    el.addEventListener('pointerenter', () => setHoverBackdrop(it.slug));
+    el.addEventListener('pointerleave', () => setHoverBackdrop(null));
+
+    el.addEventListener('pointermove', e => {
+      // якщо гру щойно зупинили, а курсор так і лишився на картці —
+      // повертаємо ховер-фон без потреби рухати мишу на іншу картку
+      if (!bgActive && bgHover !== it.slug) setHoverBackdrop(it.slug);
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+    return el;
+  }
+
+  function render() {
+    stopAll();
+    grid.textContent = '';
+    const list = items.filter(it => match(it, active));
+    list.forEach((it, i) => {
+      const c = card(it);
+      c.style.setProperty('--i', Math.min(i, 11));
+      grid.appendChild(c);
+    });
+    if (!list.length) grid.innerHTML = '<p style="color:var(--dim)">—</p>';
+  }
+
+  applyLang(lang);
+  render();
+  setHero(items.find(i => i.slug === 'tower-rush') || items[0]);
+
+  /* ---------------- дрібниці ---------------- */
+  /* ---- автозапуск демо в першій секції ----
+     Стартує, коли телефон у зоні видимості, і зупиняється, щойно
+     користувач прокрутив нижче — щоб важкий iframe і звук не жили
+     за кадром. Не втручається, якщо вже грає картка в галереї. */
+  const stageEl = document.querySelector('.stage');
+  let autoTimer = null;
+
+  function heroAutoStart() {
+    if (heroPlayer || players.size) return;       // вже щось грає
+    const pb = document.getElementById('heroPlay');
+    if (pb) pb.click();
+  }
+  function heroAutoStop() {
+    if (heroPlayer) heroPlayer.stop();
+  }
+
+  if (stageEl && 'IntersectionObserver' in window) {
+    const io3 = new IntersectionObserver(es => es.forEach(e => {
+      clearTimeout(autoTimer);
+      if (e.intersectionRatio >= 0.55) {
+        // невелика затримка: інакше швидкий скрол туди-сюди
+        // смикав би 3-мегабайтний iframe
+        autoTimer = setTimeout(heroAutoStart, 350);
+      } else if (e.intersectionRatio < 0.2) {
+        autoTimer = setTimeout(heroAutoStop, 120);
+      }
+    }), { threshold: [0, 0.2, 0.55, 1] });
+    io3.observe(stageEl);
+  }
+
+  const nav = document.getElementById('nav');
+  const prog = document.getElementById('navProg');
+  const onScroll = () => {
+    nav.classList.toggle('stuck', scrollY > 8);
+    const max = document.body.scrollHeight - innerHeight;
+    prog.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  const phone = document.getElementById('heroPhone');
+  if (phone && !matchMedia('(prefers-reduced-motion: reduce)').matches && innerWidth > 940) {
+    addEventListener('scroll', () => {
+      const y = Math.min(scrollY, 460);
+      phone.style.transform = 'translateY(' + (y * -0.045).toFixed(1) + 'px)';
+    }, { passive: true });
+  }
+
+  const io2 = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io2.unobserve(e.target); }
+  }), { rootMargin: '-40px' });
+  document.querySelectorAll('.reveal').forEach(el => io2.observe(el));
+})();
+</script>
+</body>
+</html>
